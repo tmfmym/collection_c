@@ -1,0 +1,19 @@
+/*
+ * configure.h
+ *
+ *  Created on: 2012/11/05
+ *      Author: tomofumi
+ */
+
+#ifndef CONFIGURE_H_
+#define CONFIGURE_H_
+
+#define FALSE 0
+#define TRUE 1
+
+/* ログレベル */
+#ifndef LOG_LEVEL
+#define LOG_LEVEL 40
+#endif
+
+#endif /* CONFIGURE_H_ */
