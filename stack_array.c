@@ -10,12 +10,12 @@
 #include "stack_array.h"
 
 typedef struct _StackArray {
-	/* データを保存する配列 */
-	int *array;
-	/* 最大容量 */
-	int max;
-	/* スタック頂上の位置（最下部からのオフセット） */
-	int top;
+  /* データを保存する配列 */
+  int *array;
+  /* 最大容量 */
+  int max;
+  /* スタック頂上の位置（最下部からのオフセット） */
+  int top;
 } _StackArray;
 
 /*
@@ -26,14 +26,14 @@ typedef struct _StackArray {
  * @return StackArray
  */
 StackArray StackArray_New(int *array, int max) {
-	StackArray instance;
-	if (!(instance = (StackArray)malloc(sizeof(_StackArray)))) {
-		LOGGER_ERROR("error %s\n", __func__);
-	}
-	instance->array = array;
-	instance->max = max;
-	instance->top = 0;
-	return instance;
+  StackArray instance;
+  if (!(instance = (StackArray)malloc(sizeof(_StackArray)))) {
+    LOGGER_ERROR("error %s\n", __func__);
+  }
+  instance->array = array;
+  instance->max = max;
+  instance->top = 0;
+  return instance;
 }
 
 /*
@@ -42,8 +42,8 @@ StackArray StackArray_New(int *array, int max) {
  * @return NULL
  */
 StackArray StackArray_Delete(StackArray this) {
-	free(this);
-	return NULL ;
+  free(this);
+  return NULL ;
 }
 
 /*
@@ -52,13 +52,13 @@ StackArray StackArray_Delete(StackArray this) {
  * @param value
  */
 void StackArray_Push(StackArray this, int value) {
-	if (this->top == this->max) {
-		LOGGER_ERROR("error:Stack overflow %s\n", __func__);
-		exit(EXIT_FAILURE);
-	} else {
-		*(this->array + this->top) = value;
-		this->top++;
-	}
+  if (this->top == this->max) {
+    LOGGER_ERROR("error:Stack overflow %s\n", __func__);
+    exit(EXIT_FAILURE);
+  } else {
+    *(this->array + this->top) = value;
+    this->top++;
+  }
 }
 
 /*
@@ -67,14 +67,14 @@ void StackArray_Push(StackArray this, int value) {
  * @return 取得した値
  */
 int StackArray_Pop(StackArray this) {
-	if (this->top == 0) {
-		LOGGER_ERROR("error:Stack underflow %s\n", __func__);
-		exit(EXIT_FAILURE);
-		return 0;
-	} else {
-		this->top--;
-		return *(this->array + this->top);
-	}
+  if (this->top == 0) {
+    LOGGER_ERROR("error:Stack underflow %s\n", __func__);
+    exit(EXIT_FAILURE);
+    return 0;
+  } else {
+    this->top--;
+    return *(this->array + this->top);
+  }
 }
 
 /*
@@ -83,9 +83,9 @@ int StackArray_Pop(StackArray this) {
  * @return 結果
  */
 _Bool StackArray_IsEmpty(StackArray this) {
-	if (this->top == 0) {
-		return TRUE;
-	} else {
-		return FALSE;
-	}
+  if (this->top == 0) {
+    return TRUE;
+  } else {
+    return FALSE;
+  }
 }
