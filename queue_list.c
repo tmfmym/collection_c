@@ -1,30 +1,31 @@
 /*
- * stack_list.c
+ * queue_list.c
  *
- *  Created on: 2012/11/05
+ *  Created on: 2012/11/06
  *      Author: tomofumi
  */
 #include <stdlib.h>
 #include "configure.h"
 #include "logger.h"
 #include "list.h"
-#include "stack_list.h"
+#include "queue_list.h"
 
-typedef struct _StackList {
+typedef struct _QueueList {
   ListNode list_head;
   ListNode list_last;
   int size;
-} _StackList;
+} _QueueList;
 
 /*
  * オブジェクトを生成
  *
- * @param value
- * @return StackList
+ * @param array データを保存する配列
+ * @param max 配列のサイズ
+ * @return QueueList
  */
-StackList StackList_New(int value) {
-  StackList instance;
-  if (!(instance = (StackList)malloc(sizeof(_StackList)))) {
+QueueList QueueList_New(int value) {
+  QueueList instance;
+  if (!(instance = (QueueList)malloc(sizeof(_QueueList)))) {
     LOGGER_ERROR("error %s\n", __func__);
     return NULL ;
   }
@@ -40,20 +41,21 @@ StackList StackList_New(int value) {
  *
  * @return NULL
  */
-StackList StackList_Delete(StackList this) {
+QueueList QueueList_Delete(QueueList this) {
   ListNode_Delete(this->list_head);
   free(this);
   return NULL ;
 }
 
 /*
- * 値を挿入
+ * 値を追加
  *
  * @param value
  */
-void StackList_Push(StackList this, int value) {
+void QueueList_Push(QueueList this, int value) {
   if (this->list_head == NULL ) {
-    this->list_head = StackList_New(value);
+    this->list_head = QueueList_New(value);
+    this->size = 0;
   } else {
     this->list_last = ListNode_Add(this->list_head, value);
     this->size++;
@@ -65,14 +67,17 @@ void StackList_Push(StackList this, int value) {
  *
  * @return 取得した値
  */
-int StackList_Pop(StackList this) {
+int QueueList_Pop(QueueList this) {
   int value;
   if (this->list_head == NULL ) {
     LOGGER_ERROR("error:Stack underflow %s\n", __func__);
     exit(EXIT_FAILURE);
     return 0;
   } else {
-    value = ListNode_Remove(this->list_head, this->size);
+    printf("list_head %x\n", this->list_head);
+    value = ListNode_Remove(this->list_head, 0);
+    this->list_head = ListNode_GetNextNode(this->list_head);
+    printf("list_head %x\n", this->list_head);
     if (this->size == 0) {
       this->list_head = NULL;
     } else {
@@ -87,7 +92,7 @@ int StackList_Pop(StackList this) {
  *
  * @return 結果
  */
-_Bool StackList_IsEmpty(StackList this) {
+_Bool QueueList_IsEmpty(QueueList this) {
   if (this->size == 0) {
     return TRUE;
   } else {

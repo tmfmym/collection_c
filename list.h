@@ -17,5 +17,6 @@ int ListNode_Get(ListNode head_node, int index);
 int ListNode_GetFirst(ListNode head_node);
 int ListNode_GetLast(ListNode head_node);
 int ListNode_Remove(ListNode head_node, int index);
+ListNode ListNode_GetNextNode(ListNode head_node);
 
 #endif /* LIST_H_ */
