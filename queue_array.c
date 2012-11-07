@@ -10,16 +10,9 @@
 #include "logger.h"
 #include "queue_array.h"
 
-typedef struct _QueueArray {
-  /* データを保存する配列 */
-  int *array;
-  /* 最大容量(キューのサイズ+1) 空と満杯を区別するため */
-  int max;
-  /* キューの先頭位置（配列先頭からのオフセット） */
-  int first;
-  /* キューの末尾位置（配列先頭からのオフセット） */
-  int last;
-} _QueueArray;
+static void QueueArray_Push(QueueArray this, int value);
+static int QueueArray_Pop(QueueArray this);
+static _Bool QueueArray_IsEmpty(QueueArray this);
 
 /*
  * オブジェクトを生成
@@ -37,6 +30,9 @@ QueueArray QueueArray_New(int *array, int max) {
   instance->max = max;
   instance->first = 0;
   instance->last = 0;
+  instance->push = QueueArray_Push;
+  instance->pop = QueueArray_Pop;
+  instance->is_empty = QueueArray_IsEmpty;
   return instance;
 }
 
@@ -46,7 +42,9 @@ QueueArray QueueArray_New(int *array, int max) {
  * @return NULL
  */
 QueueArray QueueArray_Delete(QueueArray this) {
-  free(this);
+  if (this != NULL ) {
+    free(this);
+  }
   return NULL ;
 }
 
@@ -55,9 +53,8 @@ QueueArray QueueArray_Delete(QueueArray this) {
  *
  * @param value
  */
-void QueueArray_Push(QueueArray this, int value) {
+static void QueueArray_Push(QueueArray this, int value) {
   if ((this->last + 1) % this->max == this->first) {
-    /* 現在配列の中身は，すべてキューの要素で埋まっている */
     LOGGER_INFO("Queue is full. Cannot push value.\n");
   } else {
     *(this->array + this->last) = value;
@@ -71,15 +68,15 @@ void QueueArray_Push(QueueArray this, int value) {
  *
  * @return 取得した値
  */
-int QueueArray_Pop(QueueArray this) {
+static int QueueArray_Pop(QueueArray this) {
   int value;
 
   if (this->first == this->last) {
-    LOGGER_INFO("Queue is empty %s\n", __func__);
     errx(EXIT_FAILURE, "Queue is empty %s\n", __func__);
-    return -1 ; // TODO 整数型で-1返すのはまずい
+    return -1;
   } else {
     value = *(this->array + this->first);
+    /* 先頭を次に移動する */
     this->first = (this->first + 1) % this->max;
     return value;
   }
@@ -90,7 +87,7 @@ int QueueArray_Pop(QueueArray this) {
  *
  * @return 結果
  */
-_Bool QueueArray_IsEmpty(QueueArray this) {
+static _Bool QueueArray_IsEmpty(QueueArray this) {
   if (this->first == this->last) {
     return TRUE;
   } else {

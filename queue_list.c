@@ -5,6 +5,7 @@
  *      Author: tomofumi
  */
 #include <stdlib.h>
+#include <err.h>
 #include "configure.h"
 #include "logger.h"
 #include "list.h"
@@ -26,7 +27,7 @@ typedef struct _QueueList {
 QueueList QueueList_New(int value) {
   QueueList instance;
   if (!(instance = (QueueList)malloc(sizeof(_QueueList)))) {
-    LOGGER_ERROR("error %s\n", __func__);
+    LOGGER_ERROR("Cannot allocate memory %s\n", __func__);
     return NULL ;
   }
   ListNode list = ListNode_New(value);
@@ -42,8 +43,10 @@ QueueList QueueList_New(int value) {
  * @return NULL
  */
 QueueList QueueList_Delete(QueueList this) {
-  ListNode_Delete(this->list_head);
-  free(this);
+  if (this != NULL ) {
+    ListNode_Delete(this->list_head);
+    free(this);
+  }
   return NULL ;
 }
 
@@ -54,7 +57,7 @@ QueueList QueueList_Delete(QueueList this) {
  */
 void QueueList_Push(QueueList this, int value) {
   if (this->list_head == NULL ) {
-    this->list_head = QueueList_New(value);
+    this->list_head = ListNode_New(value);
     this->size = 0;
   } else {
     this->list_last = ListNode_Add(this->list_head, value);
@@ -70,14 +73,11 @@ void QueueList_Push(QueueList this, int value) {
 int QueueList_Pop(QueueList this) {
   int value;
   if (this->list_head == NULL ) {
-    LOGGER_ERROR("error:Stack underflow %s\n", __func__);
-    exit(EXIT_FAILURE);
+    errx(EXIT_FAILURE, "IndexOutOfBoundsException %s\n", __func__);
     return 0;
   } else {
-    printf("list_head %x\n", this->list_head);
     value = ListNode_Remove(this->list_head, 0);
     this->list_head = ListNode_GetNextNode(this->list_head);
-    printf("list_head %x\n", this->list_head);
     if (this->size == 0) {
       this->list_head = NULL;
     } else {

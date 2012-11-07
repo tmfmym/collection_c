@@ -7,11 +7,13 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include "configure.h"
 #include "list.h"
 #include "stack_array.h"
 #include "stack_list.h"
 #include "queue_array.h";
 #include "queue_list.h"
+#include "binary_tree.h"
 
 #define ARRAY_SIZE 5
 
@@ -24,7 +26,7 @@ void TestList() {
   ListNode_Add(list_node, 3);
   printf("ListNode_Get(0): %d\n", ListNode_Get(list_node, 0));
   printf("ListNode_Get(1): %d\n", ListNode_Get(list_node, 1));
-  printf("ListNode_Get(2): %d\n", ListNode_Get(list_node, 2));
+  printf("ListNode_Get(8): %d\n", ListNode_Get(list_node, 8));
   printf("ListNode_GetFirst(): %d\n", ListNode_GetFirst(list_node));
   printf("ListNode_GetLast(): %d\n", ListNode_GetLast(list_node));
   printf("ListNode_Remove(2): %d\n", ListNode_Remove(list_node, 2));
@@ -33,8 +35,8 @@ void TestList() {
   printf("ListNode_Get(1): %d\n", ListNode_Get(list_node, 0));
   ListNode_Add(list_node, 4);
   ListNode_Add(list_node, 4);
-	printf("ListNode_Get(1): %d\n", ListNode_Get(list_node, 0));
-	printf("ListNode_Get(1): %d\n", ListNode_Get(list_node, 1));
+  printf("ListNode_Get(1): %d\n", ListNode_Get(list_node, 0));
+  printf("ListNode_Get(1): %d\n", ListNode_Get(list_node, 1));
   list_node = ListNode_Delete(list_node);
 }
 
@@ -43,15 +45,15 @@ void TestStackArray() {
   int array[ARRAY_SIZE];
 
   StackArray stack = StackArray_New(array, ARRAY_SIZE);
-  StackArray_Push(stack, 1);
-  StackArray_Push(stack, 2);
-  StackArray_Push(stack, 3);
-  printf("pop %d\n", StackArray_Pop(stack));
-  StackArray_Push(stack, 4);
-  printf("pop %d\n", StackArray_Pop(stack));
-  printf("pop %d\n", StackArray_Pop(stack));
-  printf("pop %d\n", StackArray_Pop(stack));
-//  printf("pop %d\n", StackArray_Pop(stack));
+  stack->push(stack, 1);
+  stack->push(stack, 2);
+  stack->push(stack, 3);
+  printf("pop %d\n", stack->pop(stack));
+  stack->push(stack, 4);
+  printf("pop %d\n", stack->pop(stack));
+  printf("pop %d\n", stack->pop(stack));
+  printf("pop %d\n", stack->pop(stack));
+//  printf("pop %d\n", stack->pop(stack));
   StackArray_Delete(stack);
 }
 
@@ -74,19 +76,19 @@ void TestQueueArray() {
   int array[ARRAY_SIZE];
 
   QueueArray queue = QueueArray_New(array, ARRAY_SIZE);
-  QueueArray_Push(queue, 1);
-  QueueArray_Push(queue, 2);
-  QueueArray_Push(queue, 3);
-  QueueArray_Push(queue, 4);
-  printf("pop %d\n", QueueArray_Pop(queue));
-  QueueArray_Push(queue, 5);
-  printf("pop %d\n", QueueArray_Pop(queue));
-  printf("pop %d\n", QueueArray_Pop(queue));
-  QueueArray_Push(queue, 6);
-  printf("pop %d\n", QueueArray_Pop(queue));
-  printf("pop %d\n", QueueArray_Pop(queue));
-  printf("pop %d\n", QueueArray_Pop(queue));
-  printf("pop %d\n", QueueArray_Pop(queue));
+  queue->push(queue, 1);
+  queue->push(queue, 2);
+  queue->push(queue, 3);
+  queue->push(queue, 4);
+  printf("pop %d\n", queue->pop(queue));
+  queue->push(queue, 5);
+  printf("pop %d\n", queue->pop(queue));
+  printf("pop %d\n", queue->pop(queue));
+  queue->push(queue, 6);
+  printf("pop %d\n", queue->pop(queue));
+  printf("pop %d\n", queue->pop(queue));
+  printf("pop %d\n", queue->pop(queue));
+  printf("pop %d\n", queue->pop(queue));
   QueueArray_Delete(queue);
 }
 
@@ -109,11 +111,58 @@ void TestQueueList() {
   QueueList_Delete(queue);
 }
 
+void TestBinaryTree() {
+  int i, action;
+  TreeNode tree_root = TreeNode_New(1);
+
+  for (i = 0; i < 10; i++) {
+    tree_root->add(tree_root, rand() % 99 + 1);
+  }
+  while (TRUE) {
+    tree_root->show(tree_root, 0);
+    printf("実行する操作のタイプを入力してください。\n 1 ：追加\t2 ：検索\t3 ：削除\t それ以外：終了>");
+    scanf("%d", &action);
+    switch (action) {
+    case 1:
+      printf("1 〜100の範囲で，追加する数字を入力してください:");
+      scanf("%d", &i);
+      if (i < 1 || i > 100) {
+        continue;
+      }
+      tree_root->add(tree_root, i);
+      break;
+    case 2:
+      printf("検索する数字を入力してください:");
+      scanf("%d", &i);
+      if (tree_root->find(tree_root, i) != NULL ) {
+        printf("%dを発見しました\n", i);
+      } else {
+        printf("%dは見つかりませんでした\n", i);
+      }
+      break;
+    case 3:
+      printf("削除する数字を入力してください:");
+      scanf("%d", &i);
+      if (tree_root->remove(tree_root, i) != NULL ) {
+        printf("%dを削除しました\n", i);
+      } else {
+        printf("%dは見つかりませんでした\n", i);
+      }
+      break;
+    default:
+      TreeNode_Delete(tree_root);
+      break;
+    }
+  }
+}
+
 int main(int argc, char **argv) {
 //	TestList();
-//  TestStackArray();
+  TestStackArray();
 //  TestStackList();
 //  TestQueueArray();
-  TestQueueList();
+//  TestQueueList();
+//  TestBinaryTree();
+
   exit(EXIT_SUCCESS);
 }

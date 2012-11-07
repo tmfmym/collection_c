@@ -10,8 +10,8 @@
 
 typedef struct _ListNode *ListNode;
 
-ListNode ListNode_New(int data);
-ListNode ListNode_Add(ListNode head_node, int data);
+ListNode ListNode_New(int value);
+ListNode ListNode_Add(ListNode head_node, int value);
 ListNode ListNode_Delete(ListNode head_node);
 int ListNode_Get(ListNode head_node, int index);
 int ListNode_GetFirst(ListNode head_node);

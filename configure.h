@@ -11,6 +11,10 @@
 #define FALSE 0
 #define TRUE 1
 
+#define INDEXOUTOFBOUNDSEXCEPTION "IndexOutOfBoundsException: at"
+#define NULLPOINTEREXCEPTION "NullPointerException: at"
+#define CANNOTALLOCATEMEMORY "error:Cannot allocate memory at %s\n"
+
 /* ログレベル */
 #ifndef LOG_LEVEL
 #define LOG_LEVEL 40

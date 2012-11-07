@@ -41,8 +41,10 @@ StackList StackList_New(int value) {
  * @return NULL
  */
 StackList StackList_Delete(StackList this) {
-  ListNode_Delete(this->list_head);
-  free(this);
+  if (this != NULL ) {
+    ListNode_Delete(this->list_head);
+    free(this);
+  }
   return NULL ;
 }
 
