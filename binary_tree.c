@@ -16,6 +16,7 @@ static void Add(TreeNode this, int value);
 static TreeNode Find(TreeNode this, int value);
 static TreeNode Remove(TreeNode this, int value);
 static void Show(TreeNode this, int depth);
+
 static void ChangeParentReferenceNode(TreeNode this, TreeNode parent_node,
     TreeNode child_node, int direction);
 
@@ -174,6 +175,22 @@ static TreeNode Remove(TreeNode this, int value) {
 }
 
 /*
+ * ツリーを表示
+ *
+ * @param depth 階層数(ルートは0)
+ */
+static void Show(TreeNode this, int depth) {
+  if (this == NULL ) return;
+
+  Show(this->left_node, depth + 1);
+  for (int i = 0; i < depth; i++) {
+    printf("  ");
+  }
+  printf("%d\n", this->value);
+  Show(this->right_node, depth + 1);
+}
+
+/*
  * 親のポインタを変更する
  *
  * @param parent_node　親ノード
@@ -193,20 +210,4 @@ static void ChangeParentReferenceNode(TreeNode this, TreeNode parent_node,
     this = child_node;
     break;
   }
-}
-
-/*
- * ツリーを表示
- *
- * @param depth 階層数(ルートは0)
- */
-static void Show(TreeNode this, int depth) {
-  if (this == NULL ) return;
-
-  Show(this->left_node, depth + 1);
-  for (int i = 0; i < depth; i++) {
-    printf("  ");
-  }
-  printf("%d\n", this->value);
-  Show(this->right_node, depth + 1);
 }
