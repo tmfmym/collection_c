@@ -26,7 +26,7 @@ void TestList() {
   ListNode_Add(list_node, 3);
   printf("ListNode_Get(0): %d\n", ListNode_Get(list_node, 0));
   printf("ListNode_Get(1): %d\n", ListNode_Get(list_node, 1));
-  printf("ListNode_Get(8): %d\n", ListNode_Get(list_node, 8));
+//  printf("ListNode_Get(8): %d\n", ListNode_Get(list_node, 8));
   printf("ListNode_GetFirst(): %d\n", ListNode_GetFirst(list_node));
   printf("ListNode_GetLast(): %d\n", ListNode_GetLast(list_node));
   printf("ListNode_Remove(2): %d\n", ListNode_Remove(list_node, 2));
@@ -157,8 +157,8 @@ void TestBinaryTree() {
 }
 
 int main(int argc, char **argv) {
-//	TestList();
-  TestStackArray();
+	TestList();
+//  TestStackArray();
 //  TestStackList();
 //  TestQueueArray();
 //  TestQueueList();

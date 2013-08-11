@@ -32,6 +32,7 @@ typedef struct _ListNode {
  */
 static ListNode ListNode_Initilaze(int value) {
   ListNode new_node;
+  struct _ListNodE node;
   if (!(new_node = (ListNode)malloc(sizeof(_ListNode)))) {
     LOGGER_ERROR("%s %s\n", CANNOTALLOCATEMEMORY, __func__);
     return NULL ;

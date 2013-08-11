@@ -195,7 +195,7 @@ static void Show(TreeNode this, int depth) {
  *
  * @param parent_node　親ノード
  * @param child_node  子ノード
- * @param direction 親から見た位置 -1:左 0:自分 -1:右
+ * @param direction 親から見た位置 -1:左 0:自分 1:右
  */
 static void ChangeParentReferenceNode(TreeNode this, TreeNode parent_node,
     TreeNode child_node, int direction) {

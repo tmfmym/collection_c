@@ -8,7 +8,7 @@
 #ifndef LIST_H_
 #define LIST_H_
 
-typedef struct _ListNode *ListNode;
+typedef struct _ListNodE *ListNode;
 
 ListNode ListNode_New(int value);
 ListNode ListNode_Add(ListNode head_node, int value);
