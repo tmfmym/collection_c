@@ -8,12 +8,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "configure.h"
-#include "list.h"
-#include "stack_array.h"
-#include "stack_list.h"
-#include "queue_array.h";
-#include "queue_list.h"
-#include "binary_tree.h"
+#include "List/list.h"
+#include "Stack/stack_array.h"
+#include "Stack/stack_list.h"
+#include "Queue/queue_array.h";
+#include "Queue/queue_list.h"
+#include "Tree/binary_tree.h"
 
 #define ARRAY_SIZE 5
 
@@ -21,23 +21,25 @@
 
 void TestList() {
   SHOW_FUNC
-  ListNode list_node = ListNode_New(1);
-  ListNode_Add(list_node, 2);
-  ListNode_Add(list_node, 3);
-  printf("ListNode_Get(0): %d\n", ListNode_Get(list_node, 0));
-  printf("ListNode_Get(1): %d\n", ListNode_Get(list_node, 1));
+  List list = List_New();
+
+  List_Add(list, (void*)2);
+  List_Add(list, (void*)3);
+  List_Get(list, 0);
+  printf("List_Get(0): %d\n", (int)List_Get(list, 0));
+  printf("List_Get(1): %d\n", (int)List_Get(list, 1));
 //  printf("ListNode_Get(8): %d\n", ListNode_Get(list_node, 8));
-  printf("ListNode_GetFirst(): %d\n", ListNode_GetFirst(list_node));
-  printf("ListNode_GetLast(): %d\n", ListNode_GetLast(list_node));
-  printf("ListNode_Remove(2): %d\n", ListNode_Remove(list_node, 2));
-  printf("ListNode_Remove(1): %d\n", ListNode_Remove(list_node, 1));
-  ListNode_Add(list_node, 4);
-  printf("ListNode_Get(1): %d\n", ListNode_Get(list_node, 0));
-  ListNode_Add(list_node, 4);
-  ListNode_Add(list_node, 4);
-  printf("ListNode_Get(1): %d\n", ListNode_Get(list_node, 0));
-  printf("ListNode_Get(1): %d\n", ListNode_Get(list_node, 1));
-  list_node = ListNode_Delete(list_node);
+  printf("List_GetFirst(): %d\n", (int)List_GetFirst(list));
+  printf("List_GetLast(): %d\n", (int)List_GetLast(list));
+  printf("List_Remove(2): %d\n", (int)List_Remove(list, 2));
+  printf("List_Remove(1): %d\n", (int)List_Remove(list, 1));
+  List_Add(list, 4);
+  printf("List_Get(1): %d\n", (int)List_Get(list, 0));
+  List_Add(list, 4);
+  List_Add(list, 4);
+  printf("List_Get(1): %d\n", (int)List_Get(list, 0));
+  printf("List_Get(1): %d\n", (int)List_Get(list, 1));
+  list = List_Delete(list);
 }
 
 void TestStackArray() {
