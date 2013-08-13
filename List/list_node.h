@@ -18,5 +18,7 @@ typedef struct _ListNode {
 
 ListNode ListNode_New(void* value);
 ListNode ListNode_Delete(ListNode node);
+ListNode ListNode_DeleteAll(ListNode node);
+void* ListNode_Remove(ListNode head_node, int index);
 
 #endif /* LIST_H_ */

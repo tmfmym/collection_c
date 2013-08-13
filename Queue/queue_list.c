@@ -24,11 +24,11 @@ typedef struct _QueueList {
  * @param max 配列のサイズ
  * @return QueueList
  */
-QueueList QueueList_New(int value) {
+QueueList QueueList_New(void* value) {
   QueueList instance;
   if (!(instance = (QueueList)malloc(sizeof(_QueueList)))) {
     LOGGER_ERROR("Cannot allocate memory %s\n", __func__);
-    return NULL ;
+    return NULL;
   }
   ListNode list = ListNode_New(value);
   instance->list_head = list;
@@ -43,11 +43,11 @@ QueueList QueueList_New(int value) {
  * @return NULL
  */
 QueueList QueueList_Delete(QueueList this) {
-  if (this != NULL ) {
-    ListNode_Delete(this->list_head);
+  if (this != NULL) {
+    ListNode_DeleteAll(this->list_head);
     free(this);
   }
-  return NULL ;
+  return NULL;
 }
 
 /*
@@ -55,7 +55,7 @@ QueueList QueueList_Delete(QueueList this) {
  *
  * @param value
  */
-void QueueList_Push(QueueList this, int value) {
+void QueueList_Push(QueueList this, void* value) {
   if (this->list_head == NULL ) {
     this->list_head = ListNode_New(value);
     this->size = 0;
@@ -70,8 +70,8 @@ void QueueList_Push(QueueList this, int value) {
  *
  * @return 取得した値
  */
-int QueueList_Pop(QueueList this) {
-  int value;
+void* QueueList_Pop(QueueList this) {
+  void* value;
   if (this->list_head == NULL ) {
     errx(EXIT_FAILURE, "IndexOutOfBoundsException %s\n", __func__);
     return 0;

@@ -10,10 +10,10 @@
 
 typedef struct _QueueList *QueueList;
 
-QueueList QueueList_New(int value);
+QueueList QueueList_New(void* value);
 QueueList QueueList_Delete(QueueList this);
-void QueueList_Push(QueueList this, int value);
-int QueueList_Pop(QueueList this);
+void QueueList_Push(QueueList this, void* value);
+void* QueueList_Pop(QueueList this);
 _Bool QueueList_IsEmpty(QueueList this);
 
 #endif /* QUEUE_LIST_H_ */

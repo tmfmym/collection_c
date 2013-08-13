@@ -35,19 +35,19 @@ List List_New() {
 List List_Delete(List self) {
   if (self == NULL) return NULL;
 
-  if (self->head != NULL) {
-    ListNode delete_node = self->head;
-    ListNode temp_node = self->head;
+  ListNode_DeleteAll(self->head);
+  // if (self->head != NULL) {
+  //   ListNode delete_node = self->head;
+  //   ListNode temp_node = self->head;
 
-    while (delete_node != NULL) {
-      temp_node = temp_node->next;
-      free(delete_node);
-      delete_node = temp_node;
-    }
-  }
-
-  self = NULL;
-  return self;
+  //   while (delete_node != NULL) {
+  //     temp_node = temp_node->next;
+  //     free(delete_node);
+  //     delete_node = temp_node;
+  //   }
+  // }
+  free(self);
+  return NULL;
 }
 
 /*
