@@ -28,3 +28,4 @@ Debug/Tree/binary_tree.o
 Debug/Tree/binary_tree.d
 bin/list_test.dSYM/Contents/Info.plist
 bin/list_test.dSYM/Contents/Resources/DWARF/list_test
+bin/list_test
