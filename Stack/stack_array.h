@@ -8,6 +8,8 @@
 #ifndef STACK_ARRAY_H_
 #define STACK_ARRAY_H_
 
+#include <stdbool.h>
+
 typedef struct _StackArray *StackArray;
 
 typedef struct _StackArray {
@@ -16,7 +18,7 @@ typedef struct _StackArray {
   int top; /* スタック頂上の位置（最下部からのオフセット） */
   void (*push)(StackArray this, int value);
   int (*pop)(StackArray this);
-  _Bool (*is_empty)(StackArray this);
+  bool (*is_empty)(StackArray this);
 } _StackArray;
 
 StackArray StackArray_New(int *array, int max);

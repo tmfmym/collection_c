@@ -4,7 +4,9 @@
  *  Created on: 2012/11/06
  *      Author: tomofumi
  */
+ 
 #include <stdlib.h>
+#include <stdbool.h>
 #include <err.h>
 #include "../configure.h"
 #include "../logger.h"
@@ -56,7 +58,7 @@ QueueList QueueList_Delete(QueueList this) {
  * @param value
  */
 void QueueList_Push(QueueList this, void* value) {
-  if (this->list_head == NULL ) {
+  if (this->list_head == NULL) {
     this->list_head = ListNode_New(value);
     this->size = 0;
   } else {
@@ -72,7 +74,7 @@ void QueueList_Push(QueueList this, void* value) {
  */
 void* QueueList_Pop(QueueList this) {
   void* value;
-  if (this->list_head == NULL ) {
+  if (this->list_head == NULL) {
     errx(EXIT_FAILURE, "IndexOutOfBoundsException %s\n", __func__);
     return 0;
   } else {
@@ -92,10 +94,10 @@ void* QueueList_Pop(QueueList this) {
  *
  * @return 結果
  */
-_Bool QueueList_IsEmpty(QueueList this) {
+bool QueueList_IsEmpty(QueueList this) {
   if (this->size == 0) {
-    return TRUE;
+    return true;
   } else {
-    return FALSE;
+    return false;
   }
 }

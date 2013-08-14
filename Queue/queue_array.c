@@ -6,6 +6,7 @@
  */
  
 #include <stdlib.h>
+#include <stdbool.h>
 #include <err.h>
 #include "../configure.h"
 #include "../logger.h"
@@ -13,7 +14,7 @@
 
 static void QueueArray_Push(QueueArray this, int value);
 static int QueueArray_Pop(QueueArray this);
-static _Bool QueueArray_IsEmpty(QueueArray this);
+static bool QueueArray_IsEmpty(QueueArray this);
 
 /*
  * オブジェクトを生成
@@ -43,10 +44,10 @@ QueueArray QueueArray_New(int *array, int max) {
  * @return NULL
  */
 QueueArray QueueArray_Delete(QueueArray this) {
-  if (this != NULL ) {
+  if (this != NULL) {
     free(this);
   }
-  return NULL ;
+  return NULL;
 }
 
 /*
@@ -88,10 +89,10 @@ static int QueueArray_Pop(QueueArray this) {
  *
  * @return 結果
  */
-static _Bool QueueArray_IsEmpty(QueueArray this) {
+static bool QueueArray_IsEmpty(QueueArray this) {
   if (this->first == this->last) {
-    return TRUE;
+    return true;
   } else {
-    return FALSE;
+    return false;
   }
 }

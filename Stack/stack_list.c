@@ -4,7 +4,9 @@
  *  Created on: 2012/11/05
  *      Author: tomofumi
  */
+
 #include <stdlib.h>
+#include <stdbool.h>
 #include "../configure.h"
 #include "../logger.h"
 #include "../List/list_node.h"
@@ -89,10 +91,10 @@ int StackList_Pop(StackList this) {
  *
  * @return 結果
  */
-_Bool StackList_IsEmpty(StackList this) {
+bool StackList_IsEmpty(StackList this) {
   if (this->size == 0) {
-    return TRUE;
+    return true;
   } else {
-    return FALSE;
+    return false;
   }
 }

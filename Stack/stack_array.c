@@ -4,14 +4,16 @@
  *  Created on: 2012/11/05
  *      Author: tomofumi
  */
+
 #include <stdlib.h>
+#include <stdbool.h>
 #include "../configure.h"
 #include "../logger.h"
 #include "stack_array.h"
 
 static void Push(StackArray this, int value);
 static int Pop(StackArray this);
-static _Bool IsEmpty(StackArray this);
+static bool IsEmpty(StackArray this);
 
 /*
  * オブジェクトを生成
@@ -82,10 +84,10 @@ static int Pop(StackArray this) {
  *
  * @return 結果
  */
-static _Bool IsEmpty(StackArray this) {
+static bool IsEmpty(StackArray this) {
   if (this->top == 0) {
-    return TRUE;
+    return true;
   } else {
-    return FALSE;
+    return false;
   }
 }
